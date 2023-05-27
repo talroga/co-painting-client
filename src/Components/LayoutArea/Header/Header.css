@@ -1,0 +1,4 @@
+.Header > h1, .Header > h4 {
+    display: flex;
+    justify-content: center;
+}

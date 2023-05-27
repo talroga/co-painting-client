@@ -1,0 +1,13 @@
+.CoPainting {
+    box-sizing: border-box;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.CoPainting > canvas {
+    border: 2px solid;
+    box-sizing: content-box;
+    width: 600px;
+    height: 400px;
+}
