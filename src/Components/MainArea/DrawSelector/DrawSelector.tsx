@@ -5,6 +5,7 @@ import { DrawEventHandler } from "../CoPainting/CoPaintingLogic";
 import { DrawMenu } from "../DrawMenu/DrawMenuI";
 import { CoPaintingWebSocket } from "../../../Utils/CoPaintingWebSocket/CoPaintingWebSocket";
 import { draw } from "../../../Utils/Types/DrawActionFactory";
+import BrushDrawMenu from "../BrushDrawMenu/BrushDrawMenu";
 
 
 const defaultSelection = 'Circle'
@@ -21,15 +22,26 @@ function DrawSelector(props: {canvas: HTMLCanvasElement, coPaintingWebsocket: Co
     }
 
     const drawMenuSelectorMapping: {[key: string]: DrawMenu} = {
-        'Circle': CircleDrawMenu
+        'Circle': CircleDrawMenu,
+        'Brush': BrushDrawMenu
+    }
+
+    const selection = (drawSelectionString: string) => {
+        switch(drawSelection) {
+            case 'Circle':
+                return <CircleDrawMenu canvas={props.canvas} coPaintingWebsocket={props.coPaintingWebsocket} />
+            case 'Brush':
+                return <BrushDrawMenu canvas={props.canvas} coPaintingWebsocket={props.coPaintingWebsocket} />
+        }
     }
 
     return (
         <div className="DrawSelector">
             <div onChange={handleSelectionChange}>
                 <input type={'radio'} value={'Circle'} checked={drawSelection === 'Circle'}/> Circle
+                <input type={'radio'} value={'Brush'} checked={drawSelection === 'Brush'}/> Brush
             </div>
-            {drawMenuSelectorMapping['Circle']({canvas: props.canvas, coPaintingWebsocket: props.coPaintingWebsocket})}
+            {selection(drawSelection)}
         </div>
     );
 }
